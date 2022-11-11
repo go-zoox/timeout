@@ -1,4 +1,4 @@
-package retry
+package timeout
 
 import (
 	"errors"

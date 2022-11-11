@@ -7,7 +7,7 @@ import (
 )
 
 // Timeout call the function with timeout
-func Timeout(fn func(), timeout time.Duration) (err error) {
+func Timeout(fn func() error, timeout time.Duration) (err error) {
 	c := make(chan struct{})
 
 	go func() {
@@ -24,7 +24,7 @@ func Timeout(fn func(), timeout time.Duration) (err error) {
 			}
 		}()
 
-		fn()
+		err = fn()
 		c <- struct{}{}
 	}()
 

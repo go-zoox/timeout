@@ -17,9 +17,10 @@ go get github.com/go-zoox/timeout
 
 ```go
 func TestTimeout(t *testing.T) {
-	fn := func() {
+	fn := func() error {
 		time.Sleep(100 * time.Millisecond)
 		fmt.Println("fn done")
+		return nil
 	}
 
 	err := Timeout(fn, 50*time.Millisecond)

@@ -7,7 +7,12 @@ import (
 )
 
 // Timeout call the function with timeout
-func Timeout(fn func() error, timeout time.Duration) (err error) {
+func Timeout(fn func() error, timeout time.Duration, message ...string) (err error) {
+	messageX := "timeout"
+	if len(message) != 0 {
+		messageX = message[0]
+	}
+
 	c := make(chan struct{})
 
 	go func() {
@@ -32,6 +37,6 @@ func Timeout(fn func() error, timeout time.Duration) (err error) {
 	case <-c:
 		return nil
 	case <-time.After(timeout):
-		return errors.New("timeout")
+		return errors.New(messageX)
 	}
 }
